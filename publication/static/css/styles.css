@@ -1,0 +1,50 @@
+
+.searchform{
+  background-color: #27447E;
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+.searchinput{
+  border: none;
+  padding: 7px;
+  border-radius: 4px;
+  width: 200px;
+}
+
+.searchbutton{
+  background-color: whilte;
+  border: none;
+  color: black;
+  padding: 7px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
+.whole{
+  min-height: 680px;
+
+}
+
+.page-footer{
+    position: relative;
+    bottom: -123px;
+    width: 100%;
+    height: 5rem;
+    background-color: #27447E;
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 0;
+    
+}
+.footer-copyright
+{
+  position: relative;
+  top: 30px;
+}
+.footer-text{
+  color:white;
+}

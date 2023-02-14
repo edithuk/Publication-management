@@ -1,0 +1,132 @@
+{% load static %}
+<header class="headerWarp" role="banner" style="width: 100%;">
+    <div class="brandInner" style="width: 100%; margin:0px">
+        <div class="logo">
+            <a href="/" title="Home" rel="home" class="site-logo"><img style="height: 7rem;"
+                src="{% static 'img/rvce_logo.jpg' %}"
+                    alt="Home" /></a>
+        </div>
+        <div class="brandName">
+            <div class="l-region l-region--branding">
+                <div id="block-block-28" class="block block--block block--block-28">
+                    <div class="block__content" style="margin-left:80px;">
+                        <h3 class="rtecenter"><span style="font-size:16px">Rashtreeya Sikshana Samithi
+                                Trust</span></h3>
+                        <h1 class="rtecenter"><span style="font-size:26px"><a href="/" title="Home">R V College
+                                    of Engineering </a></span></h1>
+                        <h6 class="rtecenter"><span style="font-size:12px">Autonomous Institution affiliated to
+                                Visvesvaraya Technological University, Belagavi</span></h6>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div style="background-color:#27447E">
+    <nav class="navbar navbar-dark">
+        <div>
+            {% if request.user.is_superuser %}
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"
+                    style="color:white;">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand heading" >Welcome Admin</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a class="login-span" href="/">Home</a></li>
+                    <li><a class="login-span" href="{% url 'chartView' %}">Static Reports</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle login-span" data-toggle="dropdown" href="#">Custom Reports
+                            <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                              <li><a class="login-span" href="{% url 'customReport' %}">Publication</a></li>
+                              <li><a class="login-span" href="{% url 'customPub' %}">Publisher</a></li>
+                            </ul>
+                    </li>
+                    <li><a class="login-span" href="{% url 'addressissues' %}">Address issues</a></li>
+                    <li>
+                        <form class="searchform" enctype="multipart/form-data" action="{% url 'searching' %}" method="POST">
+                            {% csrf_token %}
+                            <input class="searchinput" name="searchtext" type="text" placeholder="Search">
+                            <button class="searchbutton" type="submit" placeholder=""><span class="fa fa-search"></span></button>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="login-span" href="{% url 'logout' %}"><span class="glyphicon glyphicon-user login-span"></span> Logout</a></li>
+                </ul>
+            </div>
+            {% elif request.user.is_authenticated %}
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"
+                    style="color:white;">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand heading" >Welcome {{request.user.first_name}} {{ request.user.last_name }}</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a class="login-span" href="/">Home</a></li>
+                    <li><a class="login-span" href="{% url 'upload_publication' %}">Upload</a></li>
+                    <li><a class="login-span" href="{% url 'yourPub' %}">Your Publications</a></li>
+                    {% comment %} <li><a class="login-span" href="/publication/templates/top_pub.html">Top Publications</a></li> {% endcomment %}
+                    <li><a class="login-span" href="{% url 'profile' %}">Profile</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle login-span" id="ticketsdrop" data-toggle="dropdown" href="#" onclick="color()">Tickets
+                            <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                              <li><a class="login-span" href="{% url 'issue' %}">Raise Ticket</a></li>
+                              <li><a class="login-span" href="{% url 'issuestatus' %}">Ticket Status</a></li>
+                            </ul>
+                    </li>
+                    <li>
+                        <form class="searchform" enctype="multipart/form-data" action="{% url 'searching' %}" method="POST">
+                            {% csrf_token %}
+                            <input class="searchinput" name="searchtext" type="text" placeholder="Search">
+                            <button class="searchbutton" type="submit" placeholder=""><span class="fa fa-search"></span></button>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="login-span" href="{% url 'logout' %}"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
+                </ul>
+            </div>
+            {% else %}
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"
+                    style="color:white;">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a  class="navbar-brand heading">Publication Portal</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a class="login-span" href="/">Home</a></li>
+                    <li><a class="login-span" href="{% url 'upload_publication' %}">Upload</a></li>
+                    <li>
+                        <form class="searchform" enctype="multipart/form-data" action="{% url 'searching' %}" method="POST">
+                            {% csrf_token %}
+                            <input class="searchinput" name="searchtext" type="text" placeholder="Search">
+                            <button class="searchbutton" type="submit" placeholder=""><span class="fa fa-search"></span></button>
+                        </form>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="login-span" href="{% url 'login' %}"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+                    <li><a class="login-span" href="{% url 'register' %}"><span class="glyphicon glyphicon-user "></span> Register</a></li>
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+</div>

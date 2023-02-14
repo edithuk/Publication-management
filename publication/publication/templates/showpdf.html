@@ -1,0 +1,64 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container pdfcontainer">
+    {% if type == 'yourPub' %}
+    <h1>Your Publications</h1>
+    {% else %}
+    <h1>All Publications</h1>
+    {% endif %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Published in</th>
+                <th>Year</th>
+                <th>Details</th>
+                <th>Save</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in pdfs %}
+            <tr>
+                <td>{{ p.title }}</td>
+                <td>{{ p.PUB_TYPE }} - {{p.NAME}}</td>
+                <td>{{ p.PUB_YEAR }}</td>
+                <td><a title="See more details" href="{% url 'paperdetails' p.paper_id %}" name="paperdetails">Paper details</a>
+                </td>
+                {% if p.pdf != '' %}
+                <td><a title="Download PDF" style="border-color: black;border-width: 1px;" class="btn" href="{% url 'download_pdf' p.paper_id %}"><i class="fa fa-download"></i></a></td>
+                {% else %}
+                <td><button title="PDF not available" class="btn" disabled><i class="fa fa-download"></i></button></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            
+            {% if pdfs|length == 0 %}
+            <td>
+                <h1 style="margin-left: 40%; margin-top: 30%;">No papers to display</h1>
+            </td>
+            {% endif %}
+
+        </tbody>
+
+    </table>
+    <div class="pagination">
+        <span class="step-links">
+            {% if pdfs.has_previous %}
+            <a class="btn btn-danger" href="?page=1">&laquo; first</a>
+            <a class="btn btn-primary" href="?page={{ pdfs.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ pdfs.number }} of {{ pdfs.paginator.num_pages }}.
+            </span>
+    
+            {% if pdfs.has_next %}
+            <a class="btn btn-primary" href="?page={{ pdfs.next_page_number }}">next</a>
+            <a class="btn btn-danger" href="?page={{ pdfs.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+
+{% endblock content %}
