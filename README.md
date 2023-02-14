@@ -1,8 +1,6 @@
 # PublicationPortal
 A platform dedicated for RVCE to maintain database of published papers by its professors and students hence generate subsequent reports
 
-Hosted at: https://shivampjt.pythonanywhere.com/
-
 Useful commands:
 1. django-admin start project publicationportal
 2. python manage.py startapp upload_publication
